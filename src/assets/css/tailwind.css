@@ -50,6 +50,9 @@ nav.main-nav {
 .button {
   @apply text-base bg-primary text-white px-6 py-3 rounded-md;
 }
+.button-danger {
+  @apply text-base bg-red-700 text-white px-6 py-3 rounded-md;
+}
 
 iframe {
   height: 100%;

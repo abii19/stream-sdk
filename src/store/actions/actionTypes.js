@@ -1,3 +1,6 @@
+export const CONNECT_WALLET = "CONNECT_WALLET";
+export const DISCONNECT_WALLET = "DISCONNECT_WALLET";
+
 export const BUY_PACKAGE = "BUY_PACKAGE";
 export const START_STREAM = "START_STREAM";
 export const PAUSE_STREAM = "PAUSE_STREAM";

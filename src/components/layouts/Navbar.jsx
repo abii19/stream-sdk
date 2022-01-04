@@ -1,6 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  connectWallet,
+  disconnectWallet,
+} from "../../store/actions/walletAction";
 
 const routes = [
   {
@@ -21,7 +25,16 @@ const routes = [
 ];
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   const { isPackageBought } = useSelector((state) => state.packages);
+  const { isWalletConnected } = useSelector((state) => state.wallet);
+
+  const connectToWallet = () => {
+    dispatch(connectWallet());
+  };
+  const disconnectFromWallet = () => {
+    dispatch(disconnectWallet());
+  };
 
   return (
     <>
@@ -67,9 +80,23 @@ const Navbar = () => {
               </div>
             </div>
 
-            <button type="button" className="button">
-              Connect Wallet
-            </button>
+            {isWalletConnected ? (
+              <button
+                onClick={disconnectFromWallet}
+                type="button"
+                className="button-danger"
+              >
+                Disconnect Wallet
+              </button>
+            ) : (
+              <button
+                onClick={connectToWallet}
+                type="button"
+                className="button"
+              >
+                Connect Wallet
+              </button>
+            )}
           </div>
         </div>
       </nav>

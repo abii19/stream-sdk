@@ -24,6 +24,7 @@ const Actions = () => {
   const cancel = () => {
     dispatch(cancelStream());
   };
+
   return (
     <>
       <div className="fixed bottom-6 right-6 bg-white p-6 shadow-lg border">
@@ -133,7 +134,6 @@ const Actions = () => {
               type="button"
               onClick={cancel}
               className="flex items-center gap-x-2 px-3 py-2 rounded-md bg-gray-200 text-gray-800 text-base font-semibold hover:bg-gray-300"
-              disabled={status === null}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
