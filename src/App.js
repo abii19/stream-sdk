@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { useSelector } from "react-redux";
+import { Switch, Route } from "react-router-dom";
+import WebLayout from "./components/layouts/WebLayout";
+import HomePage from "./components/pages/HomePage";
+import ProfilePage from "./components/pages/ProfilePage";
+import StartSurfingPage from "./components/pages/StartSurfingPage";
 
-function App() {
+const PageNotFound = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="h-screen w-screen grid place-items-center">
+        Page Not Found
+      </div>
+    </>
   );
-}
+};
+
+const App = () => {
+  const { isPackageBought } = useSelector((state) => state.packages);
+
+  return (
+    <>
+      <WebLayout>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/profile" component={ProfilePage} />
+          <Route exact path="/start-surfing">
+            {isPackageBought ? <StartSurfingPage /> : <HomePage />}
+          </Route>
+          <Route path="*" render={PageNotFound} />
+        </Switch>
+      </WebLayout>
+    </>
+  );
+};
 
 export default App;

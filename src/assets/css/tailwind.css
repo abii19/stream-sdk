@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Customizing Tailwind CSS */
+@layer base {
+  body {
+    font-family: "Inter", sans-serif;
+  }
+  /* Fonts */
+  [type="text"],
+  [type="email"],
+  [type="url"],
+  [type="password"],
+  [type="number"],
+  [type="date"],
+  [type="datetime-local"],
+  [type="month"],
+  [type="search"],
+  [type="tel"],
+  [type="time"],
+  [type="week"],
+  [multiple],
+  textarea,
+  select {
+    @apply font-inter font-normal text-base text-gray-500 border border-border shadow-input focus:outline-none focus:ring-0 focus:border-border transition px-4 py-3;
+  }
+  [type="checkbox"] {
+    @apply w-5 h-5 border text-primary focus:ring-0 focus:ring-offset-0 border-border;
+  }
+  [type="radio"] {
+    @apply font-inter;
+  }
+  label {
+    @apply font-inter font-medium text-sm leading-5 text-gray-700 pb-1.5;
+  }
+}
+
+nav.main-nav {
+  background: linear-gradient(
+    90deg,
+    #221e67 0%,
+    #5e1f70 24.95%,
+    #7a2976 48.4%,
+    #a3387d 82.83%,
+    #b63f81 100%
+  );
+}
+
+.button {
+  @apply text-base bg-primary text-white px-6 py-3 rounded-md;
+}
+
+iframe {
+  height: 100%;
+}
