@@ -38,6 +38,6 @@ export const cancelStream = () => {
       dispatch({
         type: CLEAR_DATA,
       });
-    }, 2000);
+    }, 3000);
   };
 };

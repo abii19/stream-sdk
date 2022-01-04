@@ -27,8 +27,6 @@ const SurfeSection = () => {
   const dispatch = useDispatch();
   const { boughtPackage } = useSelector((state) => state.packages);
 
-  console.log(boughtPackage);
-
   return (
     <>
       <div className="bg-gray-50 py-24">
@@ -82,7 +80,7 @@ const SurfeSection = () => {
                           : "bg-indigo-700 hover:bg-indigo-800 "
                       }`}
                       onClick={() => dispatch(buyPackage(pack))}
-                      disabled={boughtPackage.name === pack.name}
+                      disabled={Object.keys(boughtPackage).length > 0}
                     >
                       {boughtPackage.name === pack.name ? "Buyed" : "Buy Now"}
                     </button>

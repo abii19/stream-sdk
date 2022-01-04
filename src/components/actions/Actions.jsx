@@ -1,6 +1,6 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { ProgressRing } from "./ProgressRing";
 import {
   startStream,
   pauseStream,
@@ -10,7 +10,20 @@ import {
 
 const Actions = () => {
   const dispatch = useDispatch();
-  const { status } = useSelector((state) => state.packages);
+  const { boughtPackage, status } = useSelector((state) => state.packages);
+
+  const [spentTime, setSpentTime] = useState(0);
+
+  useEffect(() => {
+    if (status === "streaming") {
+      const interval = setInterval(() => {
+        setSpentTime((spentTime) => spentTime + 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    } else if (status === "paused") {
+      setSpentTime(spentTime);
+    }
+  }, [status, spentTime]);
 
   const start = () => {
     dispatch(startStream());
@@ -29,16 +42,34 @@ const Actions = () => {
     <>
       <div className="fixed bottom-6 right-6 bg-white p-6 shadow-lg border">
         <div className="flex flex-col gap-y-4">
-          <div className="">
-            <h5 className="text-center text-base text-gray-900 font-medium">
+          <div className="mx-auto">
+            <ProgressRing
+              percent={
+                status === "cancelled"
+                  ? 100
+                  : (spentTime / boughtPackage.time_in_seconds) * 100
+              }
+              size={80}
+              lineWidth={8}
+              progressColor={status === "cancelled" ? "#ED584F" : "#59A0D2"}
+              trackColor="#DBE2FB"
+            >
+              <p
+                className="font-semibold text-xs text-blue leading-5"
+                style={{ marginBottom: "0", fontSize: "0.875rem" }}
+              >
+                {Number.parseFloat(
+                  (spentTime / boughtPackage.time_in_seconds) * 100,
+                ).toFixed(0)}{" "}
+                %
+              </p>
+            </ProgressRing>
+            <h5 className="text-center text-base text-gray-900 font-medium capitalize mt-1">
               {status ? (
                 status
               ) : (
                 <div className="">
-                  Click{" "}
-                  <span className="text-lg font-bold text-green-900">
-                    Start
-                  </span>{" "}
+                  Click <span className="font-bold text-green-900">Start</span>{" "}
                   to start stream
                 </div>
               )}
@@ -53,21 +84,21 @@ const Actions = () => {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
+                className="h-6 w-6"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
                 />
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
@@ -84,21 +115,21 @@ const Actions = () => {
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
+                    className="h-6 w-6"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
                     />
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                   </svg>
@@ -114,15 +145,15 @@ const Actions = () => {
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-6 w-6"
+                  className="h-6 w-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
@@ -137,15 +168,15 @@ const Actions = () => {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
+                className="h-6 w-6"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
